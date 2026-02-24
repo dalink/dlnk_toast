@@ -1,0 +1,142 @@
+/* DlnkToast: Toast Notifications for Rails + Hotwire */
+
+/* ─── CSS Variables (customize in your app) ─── */
+:root {
+  --dlnk-toast-bg: #1a1a1a;
+  --dlnk-toast-border: #1f1f1f;
+  --dlnk-toast-text: #ffffff;
+  --dlnk-toast-text-dim: #6B6B6B;
+  --dlnk-toast-accent: #D4A017;
+  --dlnk-toast-error: #ef4444;
+  --dlnk-toast-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ─── Animations ─── */
+@keyframes dlnk-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dlnk-toast-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* ─── Toast Component ─── */
+.dlnk-toast {
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  z-index: 50;
+  max-width: 28rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dlnk-toast--enter {
+  animation: dlnk-toast-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dlnk-toast--exit {
+  animation: dlnk-toast-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.dlnk-toast__body {
+  background: var(--dlnk-toast-bg);
+  border: 1px solid var(--dlnk-toast-border);
+  border-radius: 0.5rem;
+  box-shadow: var(--dlnk-toast-shadow);
+  overflow: hidden;
+}
+
+.dlnk-toast__content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.dlnk-toast__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  stroke-width: 2;
+}
+
+.dlnk-toast__icon--success {
+  color: var(--dlnk-toast-accent);
+}
+
+.dlnk-toast__icon--error {
+  color: var(--dlnk-toast-error);
+}
+
+.dlnk-toast__message {
+  color: var(--dlnk-toast-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.dlnk-toast__close {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--dlnk-toast-text-dim);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.dlnk-toast__close:hover {
+  color: var(--dlnk-toast-text);
+}
+
+.dlnk-toast__close-icon {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2;
+}
+
+.dlnk-toast__progress-bar {
+  height: 0.125rem;
+  background: var(--dlnk-toast-border);
+}
+
+.dlnk-toast__progress {
+  height: 100%;
+  transition: width linear;
+}
+
+.dlnk-toast__progress--success {
+  background: var(--dlnk-toast-accent);
+}
+
+.dlnk-toast__progress--error {
+  background: var(--dlnk-toast-error);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .dlnk-toast {
+    top: 1rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    max-width: none;
+  }
+}
