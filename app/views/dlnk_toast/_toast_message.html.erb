@@ -1,0 +1,33 @@
+<% type = local_assigns[:type]&.to_sym || :notice %>
+<% msg = local_assigns[:message] %>
+<% is_notice = type == :notice %>
+
+<div class="dlnk-toast dlnk-toast--enter dlnk-toast--<%= is_notice ? 'notice' : 'alert' %>"
+     role="<%= is_notice ? 'status' : 'alert' %>"
+     aria-live="<%= is_notice ? 'polite' : 'assertive' %>"
+     data-controller="dlnk-toast"
+     data-dlnk-toast-duration-value="<%= DlnkToast.configuration.duration %>"
+     data-action="mouseenter->dlnk-toast#pause mouseleave->dlnk-toast#resume">
+  <div class="dlnk-toast__body">
+    <div class="dlnk-toast__content">
+      <% if is_notice %>
+        <svg class="dlnk-toast__icon dlnk-toast__icon--success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      <% else %>
+        <svg class="dlnk-toast__icon dlnk-toast__icon--error" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      <% end %>
+      <span class="dlnk-toast__message"><%= msg %></span>
+      <button data-action="dlnk-toast#close" aria-label="<%= t('dlnk_toast.close') %>" class="dlnk-toast__close">
+        <svg class="dlnk-toast__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="dlnk-toast__progress-bar">
+      <div data-dlnk-toast-target="progress" class="dlnk-toast__progress dlnk-toast__progress--<%= is_notice ? 'success' : 'error' %>" style="width: 100%"></div>
+    </div>
+  </div>
+</div>

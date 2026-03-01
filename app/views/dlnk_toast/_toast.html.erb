@@ -1,51 +1,9 @@
-<% if flash[:notice].present? %>
-  <div class="dlnk-toast dlnk-toast--enter dlnk-toast--notice"
-       role="status"
-       aria-live="polite"
-       data-controller="dlnk-toast"
-       data-dlnk-toast-duration-value="<%= DlnkToast.configuration.duration %>"
-       data-action="mouseenter->dlnk-toast#pause mouseleave->dlnk-toast#resume">
-    <div class="dlnk-toast__body">
-      <div class="dlnk-toast__content">
-        <svg class="dlnk-toast__icon dlnk-toast__icon--success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
-        <span class="dlnk-toast__message"><%= flash[:notice] %></span>
-        <button data-action="dlnk-toast#close" aria-label="<%= t('dlnk_toast.close') %>" class="dlnk-toast__close">
-          <svg class="dlnk-toast__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-      <div class="dlnk-toast__progress-bar">
-        <div data-dlnk-toast-target="progress" class="dlnk-toast__progress dlnk-toast__progress--success" style="width: 100%"></div>
-      </div>
-    </div>
-  </div>
-<% end %>
+<div id="dlnk-toast-container">
+  <% if flash[:notice].present? %>
+    <%= render "dlnk_toast/toast_message", type: :notice, message: flash[:notice] %>
+  <% end %>
 
-<% if flash[:alert].present? %>
-  <div class="dlnk-toast dlnk-toast--enter dlnk-toast--alert"
-       role="alert"
-       aria-live="assertive"
-       data-controller="dlnk-toast"
-       data-dlnk-toast-duration-value="<%= DlnkToast.configuration.duration %>"
-       data-action="mouseenter->dlnk-toast#pause mouseleave->dlnk-toast#resume">
-    <div class="dlnk-toast__body">
-      <div class="dlnk-toast__content">
-        <svg class="dlnk-toast__icon dlnk-toast__icon--error" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span class="dlnk-toast__message"><%= flash[:alert] %></span>
-        <button data-action="dlnk-toast#close" aria-label="<%= t('dlnk_toast.close') %>" class="dlnk-toast__close">
-          <svg class="dlnk-toast__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-      <div class="dlnk-toast__progress-bar">
-        <div data-dlnk-toast-target="progress" class="dlnk-toast__progress dlnk-toast__progress--error" style="width: 100%"></div>
-      </div>
-    </div>
-  </div>
-<% end %>
+  <% if flash[:alert].present? %>
+    <%= render "dlnk_toast/toast_message", type: :alert, message: flash[:alert] %>
+  <% end %>
+</div>
